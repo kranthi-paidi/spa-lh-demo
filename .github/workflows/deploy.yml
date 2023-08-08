@@ -28,11 +28,11 @@ jobs:
     # Step to run Lighthouse checks
     - name: Ensure directory exists
       run: mkdir -p ./lighthouse-report
-      
+
     - name: Lighthouse check
       run: |
         npm install -g lighthouse
-        lighthouse "https://d1fcws8b0npl1n.cloudfront.net/" --chrome-flags="--headless" --output json --output html --output-path=./lighthouse-report/
+        lighthouse "https://d1fcws8b0npl1n.cloudfront.net/" --chrome-flags="--headless" --output json --output html --output-path=./lighthouse-report/lighthouse-report
         # Your custom script to check the report against the thresholds.
         node check-lighthouse-thresholds.js
     
