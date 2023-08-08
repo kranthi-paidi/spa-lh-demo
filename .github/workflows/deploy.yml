@@ -34,13 +34,14 @@ jobs:
         npm install -g lighthouse
         lighthouse "https://d1fcws8b0npl1n.cloudfront.net/" --chrome-flags="--headless" --output json --output html --output-path=./lighthouse-report/lighthouse-report
         # Your custom script to check the report against the thresholds.
+        ls -ld ./lighthouse-report
         node check-lighthouse-thresholds.js
     
     - name: Upload Lighthouse report
       uses: actions/upload-artifact@v2
       with:
         name: lighthouse-report
-        path: ./lighthouse-report.json
+        path: ./lighthouse-report/lighthouse-report.json
 
   deploy:
     needs: lighthouse-check
