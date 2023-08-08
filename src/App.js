@@ -8,7 +8,7 @@ function App() {
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload and see the magic. 
-          This is setup to demo lighthouse CI.
+          This is setup to demo lighthouse CI. A lighthouse test should run on every push to master.
         </p>
         <a
           className="App-link"
