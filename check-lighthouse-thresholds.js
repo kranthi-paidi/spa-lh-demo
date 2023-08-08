@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-const report = JSON.parse(fs.readFileSync('./lighthouse-report.json', 'utf8'));
+const report = JSON.parse(fs.readFileSync('./lighthouse-report/lighthouse-report.json', 'utf8'));
 const scores = {
   performance: report.categories.performance.score,
   accessibility: report.categories.accessibility.score,
