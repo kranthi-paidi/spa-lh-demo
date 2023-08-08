@@ -6,7 +6,35 @@ on:
       - main  # or your default branch
 
 jobs:
+  lighthouse-check:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    # This will build and deploy your application to S3
+    - name: Build and Deploy
+      run: |
+        npm ci
+        npm run build
+        aws s3 sync ./build s3://${{ secrets.S3_BUCKET_NAME }} --delete 
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
+      env:
+        AWS_DEFAULT_REGION: us-west-2  # replace with your region
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+    # Step to run Lighthouse checks
+    - name: Lighthouse check
+      run: |
+        npm install -g lighthouse
+        lighthouse "https://d1fcws8b0npl1n.cloudfront.net/" --output json --output-path=./lighthouse-report.json
+        # Your custom script to check the report against the thresholds.
+        node check-lighthouse-thresholds.js
+
   deploy:
+    needs: lighthouse-check
     runs-on: ubuntu-latest
 
     steps:
