@@ -26,6 +26,9 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
     # Step to run Lighthouse checks
+    - name: Ensure directory exists
+      run: mkdir -p ./lighthouse-report
+      
     - name: Lighthouse check
       run: |
         npm install -g lighthouse
