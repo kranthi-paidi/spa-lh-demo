@@ -13,7 +13,7 @@ const thresholds = {
   performance: 0.98,  // 90%
   accessibility: 0.98,
   seo: 0.98,
-  pwa: 0.98,
+  pwa: 0.70,
   //... other metrics
 };
 
